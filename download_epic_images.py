@@ -27,7 +27,7 @@ def get_list_epic_images_url(api_key: str = 'DEMO_KEY') -> list:
     return result
 
 
-def download_epic_images(api_key: str = 'DEMO_KEY'):
+def fetch_epic_images(api_key: str = 'DEMO_KEY'):
     params = {
         'api_key': api_key
     }
@@ -41,4 +41,4 @@ if __name__ == '__main__':
     load_dotenv()
     nasa_token = os.environ.get('NASA_TOKEN')
 
-    download_epic_images(nasa_token)
+    fetch_epic_images(nasa_token)

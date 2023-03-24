@@ -14,7 +14,7 @@ def create_arg_parser():
     return arg_parser
 
 
-def download_apod_images(api_key: str = 'DEMO_KEY', image_count: int = 1):
+def fetch_apod_images(api_key: str = 'DEMO_KEY', image_count: int = 1):
     apod_url = 'https://api.nasa.gov/planetary/apod'
     params = {
         'api_key': api_key,
@@ -51,4 +51,4 @@ if __name__ == '__main__':
     parser = create_arg_parser()
     namespace = parser.parse_args()
 
-    download_apod_images(nasa_token, namespace.image_count)
+    fetch_apod_images(nasa_token, namespace.image_count)
