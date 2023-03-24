@@ -10,7 +10,7 @@ def create_arg_parser():
     return arg_parser
 
 
-def fetch_spacex_launch(launch_id: str):
+def fetch_spacex_launch(launch_id: str = 'latest'):
     launch_url = f'https://api.spacexdata.com/v5/launches/{launch_id}'
     response = requests.get(launch_url)
     response.raise_for_status()
