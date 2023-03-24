@@ -4,6 +4,7 @@ from services import download_image
 
 
 def create_arg_parser():
+
     arg_parser = argparse.ArgumentParser()
     arg_parser.add_argument('-id', '--launch_id', default='latest')
 
@@ -11,6 +12,7 @@ def create_arg_parser():
 
 
 def fetch_spacex_launch(launch_id: str = 'latest'):
+
     launch_url = f'https://api.spacexdata.com/v5/launches/{launch_id}'
     response = requests.get(launch_url)
     response.raise_for_status()
@@ -27,6 +29,7 @@ def fetch_spacex_launch(launch_id: str = 'latest'):
 
 
 if __name__ == '__main__':
+
     parser = create_arg_parser()
     namespace = parser.parse_args()
 
