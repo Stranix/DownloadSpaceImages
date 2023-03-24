@@ -8,7 +8,6 @@ from services import download_image
 
 
 def create_arg_parser():
-
     arg_parser = argparse.ArgumentParser()
     arg_parser.add_argument('-count', '-c', '--image_count', type=int, default=1)
 
@@ -16,7 +15,6 @@ def create_arg_parser():
 
 
 def download_apod_images(api_key: str = 'DEMO_KEY', image_count: int = 1):
-
     apod_url = 'https://api.nasa.gov/planetary/apod'
     params = {
         'api_key': api_key,
@@ -40,7 +38,6 @@ def download_apod_images(api_key: str = 'DEMO_KEY', image_count: int = 1):
 
 
 def get_file_ext_from_url(url: str) -> str:
-
     split_result = urllib.parse.urlsplit(url)
     url_path = split_result.path
     file_ext = os.path.splitext(url_path)[-1]
@@ -49,7 +46,6 @@ def get_file_ext_from_url(url: str) -> str:
 
 
 if __name__ == '__main__':
-
     load_dotenv()
     nasa_token = os.environ.get('NASA_TOKEN')
     parser = create_arg_parser()
