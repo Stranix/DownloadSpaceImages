@@ -23,7 +23,7 @@ def fetch_spacex_launch(launch_id: str = 'latest'):
 
     for counter, image_url in enumerate(space_x_images_url):
         image_name = f'spacex_{launch_id}_{counter}.jpg'
-        download_image(image_url, './images', image_name)
+        download_image(image_url, './images/spacex', image_name)
 
 
 if __name__ == '__main__':

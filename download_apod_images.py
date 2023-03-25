@@ -34,7 +34,7 @@ def fetch_apod_images(api_key: str = 'DEMO_KEY', image_count: int = 1):
             continue
 
         image_name = f'nasa_apod_{counter}{ext}'
-        download_image(image_url, './images', image_name)
+        download_image(image_url, './images/apod', image_name)
 
 
 def get_file_ext_from_url(url: str) -> str:
