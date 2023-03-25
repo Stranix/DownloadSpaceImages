@@ -1,6 +1,7 @@
 import os
 import random
 import time
+import argparse
 
 from telegram import Bot
 from dotenv import load_dotenv
@@ -14,9 +15,16 @@ class SpaceImage:
     path: Path
 
 
-def send_photo_to_tg_channel(bot_token: str, chat_id: int, image: SpaceImage):
+def create_arg_parser():
+    arg_parser = argparse.ArgumentParser()
+    arg_parser.add_argument('-img', '--images', default='./images')
+
+    return arg_parser
+
+
+def send_photo_to_tg_channel(bot_token: str, chat_id: int, image: Path):
     bot = Bot(token=bot_token)
-    bot.send_photo(chat_id, open(image.path.joinpath(image.name), 'rb'))
+    bot.send_photo(chat_id, open(image, 'rb'))
 
 
 def get_images_from_folder(folder_to_scan: Path) -> list[SpaceImage]:
@@ -31,14 +39,31 @@ def get_images_from_folder(folder_to_scan: Path) -> list[SpaceImage]:
     return images_for_send
 
 
+def publish_photos(folder: Path, bot_token: str, chat_id: int, post_timeout: int = 14400):
+    if not folder.is_file():
+        while True:
+            images = get_images_from_folder(folder)
+
+            if not images:
+                print('Нет фото для публикаций. Загрузите фото и попробуйте снова.')
+                break
+
+            random.shuffle(images)
+            for image in images:
+                image.path.joinpath(image.name)
+                send_photo_to_tg_channel(bot_token, chat_id, image.path.joinpath(image.name))
+                time.sleep(post_timeout)
+    else:
+        send_photo_to_tg_channel(bot_token, chat_id, folder)
+
+
 if __name__ == '__main__':
     load_dotenv()
-    BOT_TOKEN = os.environ.get('BOT_TOKEN')
+    parser = create_arg_parser()
+    namespace = parser.parse_args()
 
-    while True:
-        scan_folder = Path('./images')
-        images = get_images_from_folder(scan_folder)
-        random.shuffle(images)
-        for image_to_send in images:
-            send_photo_to_tg_channel(BOT_TOKEN, -1001902840562, image_to_send)
-            time.sleep(14400)
+    BOT_TOKEN = os.environ.get('BOT_TOKEN')
+    POST_TIMEOUT = int(os.environ.get('POST_TIMEOUT'))
+    CHAT_ID = int(os.environ.get('POST_TIMEOUT'))
+
+    publish_photos(Path(namespace.images), BOT_TOKEN, CHAT_ID, POST_TIMEOUT)
