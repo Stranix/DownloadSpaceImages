@@ -39,6 +39,6 @@ def fetch_epic_images(api_key: str = 'DEMO_KEY'):
 
 if __name__ == '__main__':
     load_dotenv()
-    nasa_token = os.environ.get('NASA_TOKEN')
+    NASA_TOKEN = os.environ.get('NASA_TOKEN')
 
-    fetch_epic_images(nasa_token)
+    fetch_epic_images(NASA_TOKEN)
