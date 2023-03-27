@@ -43,22 +43,19 @@ def get_images_from_folder(folder_to_scan: Path) -> list[SpaceImage]:
     return images_for_send
 
 
-def publish_photos(folder: Path, tg_bot_token: str, tg_chat_id: int, post_timeout: int = 14400):
-    if not folder.is_file():
-        while True:
-            images = get_images_from_folder(folder)
+def publish_photos_from_folders(folder: Path, tg_bot_token: str, tg_chat_id: int, post_timeout: int = 14400):
+    while True:
+        images = get_images_from_folder(folder)
 
-            if not images:
-                print('Нет фото для публикаций. Загрузите фото и попробуйте снова.')
-                break
+        if not images:
+            print('Нет фото для публикаций. Загрузите фото и попробуйте снова.')
+            break
 
-            random.shuffle(images)
-            for image in images:
-                image.path.joinpath(image.name)
-                send_photo_to_tg_channel(tg_bot_token, tg_chat_id, image.path.joinpath(image.name))
-                time.sleep(post_timeout)
-    else:
-        send_photo_to_tg_channel(tg_bot_token, tg_chat_id, folder)
+        random.shuffle(images)
+        for image in images:
+            image.path.joinpath(image.name)
+            send_photo_to_tg_channel(tg_bot_token, tg_chat_id, image.path.joinpath(image.name))
+            time.sleep(post_timeout)
 
 
 def main():
@@ -70,7 +67,10 @@ def main():
     timeout = int(os.environ.get('POST_TIMEOUT'))
     chat_id = int(os.environ.get('CHAT_ID'))
 
-    publish_photos(Path(args.images), bot_token, chat_id, timeout)
+    if Path(args.images).is_file():
+        send_photo_to_tg_channel(bot_token, chat_id, Path(args.images))
+    else:
+        publish_photos_from_folders(Path(args.images), bot_token, chat_id, timeout)
 
 
 if __name__ == '__main__':
