@@ -18,8 +18,8 @@ def fetch_spacex_launch(launch_id: str = 'latest'):
     launch_url = f'https://api.spacexdata.com/v5/launches/{launch_id}'
     response = requests.get(launch_url)
     response.raise_for_status()
-    response_data = response.json()
-    space_x_images_url = response_data['links']['flickr']['original']
+    response_json = response.json()
+    space_x_images_url = response_json['links']['flickr']['original']
 
     if not space_x_images_url:
         print('У последнего запуска нет фото :(')
@@ -32,9 +32,9 @@ def fetch_spacex_launch(launch_id: str = 'latest'):
 
 def main():
     parser = create_arg_parser()
-    namespace = parser.parse_args()
+    args = parser.parse_args()
 
-    fetch_spacex_launch(namespace.launch_id)
+    fetch_spacex_launch(args.launch_id)
 
 
 if __name__ == '__main__':

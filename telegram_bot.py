@@ -64,13 +64,13 @@ def publish_photos(folder: Path, tg_bot_token: str, tg_chat_id: int, post_timeou
 def main():
     load_dotenv()
     parser = create_arg_parser()
-    namespace = parser.parse_args()
+    args = parser.parse_args()
 
     bot_token = os.environ.get('BOT_TOKEN')
     timeout = int(os.environ.get('POST_TIMEOUT'))
     chat_id = int(os.environ.get('CHAT_ID'))
 
-    publish_photos(Path(namespace.images), bot_token, chat_id, timeout)
+    publish_photos(Path(args.images), bot_token, chat_id, timeout)
 
 
 if __name__ == '__main__':

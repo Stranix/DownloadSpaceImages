@@ -27,11 +27,10 @@ def fetch_apod_images(api_key: str = 'DEMO_KEY', image_count: int = 1):
 
     response = requests.get(apod_url, params=params)
     response.raise_for_status()
-    response_data = response.json()
 
-    images_url = [data['url'] for data in response_data]
+    image_urls = [image['url'] for image in response.json()]
 
-    for counter, image_url in enumerate(images_url):
+    for counter, image_url in enumerate(image_urls):
         ext = get_file_ext_from_url(image_url)
 
         if ext not in ['.jpeg', '.jpg', '.png', '.gif']:
@@ -53,9 +52,9 @@ def main():
     load_dotenv()
     nasa_token = os.environ.get('NASA_TOKEN')
     parser = create_arg_parser()
-    namespace = parser.parse_args()
+    args = parser.parse_args()
 
-    fetch_apod_images(nasa_token, namespace.image_count)
+    fetch_apod_images(nasa_token, args.image_count)
 
 
 if __name__ == '__main__':
