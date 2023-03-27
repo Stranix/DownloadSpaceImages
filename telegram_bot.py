@@ -22,9 +22,9 @@ def create_arg_parser():
     return arg_parser
 
 
-def send_photo_to_tg_channel(bot_token: str, chat_id: int, image: Path):
-    bot = Bot(token=bot_token)
-    bot.send_photo(chat_id, open(image, 'rb'))
+def send_photo_to_tg_channel(tg_bot_token: str, tg_chat_id: int, image: Path):
+    bot = Bot(token=tg_bot_token)
+    bot.send_photo(tg_chat_id, open(image, 'rb'))
 
 
 def get_images_from_folder(folder_to_scan: Path) -> list[SpaceImage]:
@@ -39,7 +39,7 @@ def get_images_from_folder(folder_to_scan: Path) -> list[SpaceImage]:
     return images_for_send
 
 
-def publish_photos(folder: Path, bot_token: str, chat_id: int, post_timeout: int = 14400):
+def publish_photos(folder: Path, tg_bot_token: str, tg_chat_id: int, post_timeout: int = 14400):
     if not folder.is_file():
         while True:
             images = get_images_from_folder(folder)
@@ -51,10 +51,10 @@ def publish_photos(folder: Path, bot_token: str, chat_id: int, post_timeout: int
             random.shuffle(images)
             for image in images:
                 image.path.joinpath(image.name)
-                send_photo_to_tg_channel(bot_token, chat_id, image.path.joinpath(image.name))
+                send_photo_to_tg_channel(tg_bot_token, tg_chat_id, image.path.joinpath(image.name))
                 time.sleep(post_timeout)
     else:
-        send_photo_to_tg_channel(bot_token, chat_id, folder)
+        send_photo_to_tg_channel(tg_bot_token, tg_chat_id, folder)
 
 
 if __name__ == '__main__':
@@ -62,8 +62,8 @@ if __name__ == '__main__':
     parser = create_arg_parser()
     namespace = parser.parse_args()
 
-    BOT_TOKEN = os.environ.get('BOT_TOKEN')
-    POST_TIMEOUT = int(os.environ.get('POST_TIMEOUT'))
-    CHAT_ID = int(os.environ.get('POST_TIMEOUT'))
+    bot_token = os.environ.get('BOT_TOKEN')
+    timeout = int(os.environ.get('POST_TIMEOUT'))
+    chat_id = int(os.environ.get('CHAT_ID'))
 
-    publish_photos(Path(namespace.images), BOT_TOKEN, CHAT_ID, POST_TIMEOUT)
+    publish_photos(Path(namespace.images), bot_token, chat_id, timeout)

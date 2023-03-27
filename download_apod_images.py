@@ -47,8 +47,8 @@ def get_file_ext_from_url(url: str) -> str:
 
 if __name__ == '__main__':
     load_dotenv()
-    NASA_TOKEN = os.environ.get('NASA_TOKEN')
+    nasa_token = os.environ.get('NASA_TOKEN')
     parser = create_arg_parser()
     namespace = parser.parse_args()
 
-    fetch_apod_images(NASA_TOKEN, namespace.image_count)
+    fetch_apod_images(nasa_token, namespace.image_count)
