@@ -33,13 +33,13 @@ def send_photo_to_tg_channel(tg_bot_token: str, tg_chat_id: int, image: Path):
 
 def get_images_from_folder(folder_to_scan: Path) -> list[SpaceImage]:
     images_for_send = []
-    for scan_result in os.walk(folder_to_scan):
-        images = scan_result[2]
+    for path_folder, sub_folders, images in os.walk(folder_to_scan):
         if not images:
             continue
-        path_folder = scan_result[0]
+
         for image in images:
             images_for_send.append(SpaceImage(image, Path(path_folder)))
+    
     return images_for_send
 
 
