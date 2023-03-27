@@ -8,8 +8,12 @@ from services import download_image
 
 
 def create_arg_parser():
-    arg_parser = argparse.ArgumentParser()
-    arg_parser.add_argument('-count', '-c', '--image_count', type=int, default=1)
+    description = 'Качаем фото для с сайта NASA. Необходим токен NASA -> https://api.nasa.gov/'
+    epilog = 'Скаченные фотографии сохраняются в папку ./images/apod'
+    arg_parser = argparse.ArgumentParser(description=description, epilog=epilog)
+    arg_parser.add_argument('-count', '-c', '--image_count', type=int, default=1, metavar='',
+                            help='количество скачиваемых фотографий(число). Значение по умолчанию 1'
+                            )
 
     return arg_parser
 
