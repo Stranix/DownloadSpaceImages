@@ -57,7 +57,7 @@ def publish_photos(folder: Path, tg_bot_token: str, tg_chat_id: int, post_timeou
         send_photo_to_tg_channel(tg_bot_token, tg_chat_id, folder)
 
 
-if __name__ == '__main__':
+def main():
     load_dotenv()
     parser = create_arg_parser()
     namespace = parser.parse_args()
@@ -67,3 +67,7 @@ if __name__ == '__main__':
     chat_id = int(os.environ.get('CHAT_ID'))
 
     publish_photos(Path(namespace.images), bot_token, chat_id, timeout)
+
+
+if __name__ == '__main__':
+    main()

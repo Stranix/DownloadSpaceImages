@@ -26,8 +26,12 @@ def fetch_spacex_launch(launch_id: str = 'latest'):
         download_image(image_url, './images/spacex', image_name)
 
 
-if __name__ == '__main__':
+def main():
     parser = create_arg_parser()
     namespace = parser.parse_args()
 
     fetch_spacex_launch(namespace.launch_id)
+
+
+if __name__ == '__main__':
+    main()

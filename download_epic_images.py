@@ -37,8 +37,12 @@ def fetch_epic_images(api_key: str = 'DEMO_KEY'):
         download_image(url, './images/epic', image_name, params)
 
 
-if __name__ == '__main__':
+def main():
     load_dotenv()
     nasa_token = os.environ.get('NASA_TOKEN')
 
     fetch_epic_images(nasa_token)
+
+
+if __name__ == '__main__':
+    main()
