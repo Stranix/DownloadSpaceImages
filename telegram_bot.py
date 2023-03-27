@@ -16,9 +16,7 @@ class SpaceImage:
 
 
 def create_arg_parser():
-    description = '''
-    Публикуем фото из папки в Телеграм
-    '''
+    description = 'Публикуем фото из папки в Телеграм'
     arg_parser = argparse.ArgumentParser(description=description)
     arg_parser.add_argument('-img', '--images', default='./images', metavar='',
                             help='''Путь до папки с фотографиями для публикации или до файла картинки. По умолчанию 
