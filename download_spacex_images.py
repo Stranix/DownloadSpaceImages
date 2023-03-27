@@ -4,8 +4,11 @@ from services import download_image
 
 
 def create_arg_parser():
-    arg_parser = argparse.ArgumentParser()
-    arg_parser.add_argument('-id', '--launch_id', default='latest')
+    description = 'Качаем фото запусков SpaceX'
+    epilog = 'Скаченные фотографии сохраняются в папку ./images/spacex'
+    arg_parser = argparse.ArgumentParser(description=description, epilog=epilog)
+    arg_parser.add_argument('-id', '--launch_id', default='latest', metavar='',
+                            help='''id запуска. Если не указан пробует получить фото последнего запуска.''')
 
     return arg_parser
 
