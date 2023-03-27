@@ -28,7 +28,7 @@ def create_arg_parser():
 
 def send_photo_to_tg_channel(tg_bot_token: str, tg_chat_id: int, image: Path):
     bot = Bot(token=tg_bot_token)
-    bot.send_photo(tg_chat_id, open(image, 'rb'))
+    bot.send_photo(tg_chat_id, image.read_bytes())
 
 
 def get_images_from_folder(folder_to_scan: Path) -> list[SpaceImage]:
@@ -39,7 +39,7 @@ def get_images_from_folder(folder_to_scan: Path) -> list[SpaceImage]:
 
         for image in images:
             images_for_send.append(SpaceImage(image, Path(path_folder)))
-    
+
     return images_for_send
 
 
