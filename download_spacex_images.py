@@ -8,7 +8,8 @@ def create_arg_parser():
     epilog = 'Скаченные фотографии сохраняются в папку ./images/spacex'
     arg_parser = argparse.ArgumentParser(description=description, epilog=epilog)
     arg_parser.add_argument('-id', '--launch_id', default='latest', metavar='',
-                            help='''id запуска. Если не указан пробует получить фото последнего запуска.''')
+                            help='''id запуска. Если не указан пробует получить фото последнего запуска.'''
+                            )
 
     return arg_parser
 
