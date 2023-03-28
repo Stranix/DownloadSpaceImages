@@ -18,14 +18,14 @@ def fetch_spacex_launch(launch_id: str = 'latest'):
     launch_url = f'https://api.spacexdata.com/v5/launches/{launch_id}'
     response = requests.get(launch_url)
     response.raise_for_status()
-    response_json = response.json()
-    space_x_images_url = response_json['links']['flickr']['original']
+    spacex_api_response = response.json()
+    space_x_image_urls = spacex_api_response['links']['flickr']['original']
 
-    if not space_x_images_url:
+    if not space_x_image_urls:
         print('У последнего запуска нет фото :(')
         print('Попробуйте передать id запуска с помощью ключа -id')
 
-    for counter, image_url in enumerate(space_x_images_url):
+    for counter, image_url in enumerate(space_x_image_urls):
         image_name = f'spacex_{launch_id}_{counter}.jpg'
         download_image(image_url, './images/spacex', image_name)
 

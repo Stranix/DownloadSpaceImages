@@ -30,8 +30,8 @@ def fetch_epic_images(api_key: str = 'DEMO_KEY'):
     params = {
         'api_key': api_key
     }
-    images_url = get_epic_image_urls()
-    for counter, url in enumerate(images_url):
+
+    for counter, url in enumerate(get_epic_image_urls()):
         image_name = f'epic_{counter}.png'
         download_image(url, './images/epic', image_name, params)
 

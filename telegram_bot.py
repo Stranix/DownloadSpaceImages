@@ -63,9 +63,9 @@ def main():
     parser = create_arg_parser()
     args = parser.parse_args()
 
-    bot_token = os.environ.get('BOT_TOKEN')
-    timeout = int(os.environ.get('POST_TIMEOUT'))
-    chat_id = int(os.environ.get('CHAT_ID'))
+    bot_token = os.environ.get('TG_BOT_TOKEN')
+    timeout = int(os.environ.get('TG_POST_TIMEOUT'))
+    chat_id = int(os.environ.get('TG_CHAT_ID'))
 
     if Path(args.images).is_file():
         send_photo_to_tg_channel(bot_token, chat_id, Path(args.images))
